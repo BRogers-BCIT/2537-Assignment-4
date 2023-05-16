@@ -12,75 +12,81 @@ let cardOneNumber = undefined;
 let cardTwo = undefined;
 let cardTwoNumber = undefined;
 
+/* power up check */
+let powerUp = false;
+let usedPowerUp = false;
+
 
 const setup = () => {
 
     /* when you click on a card call match checker */
     $(".card").click(function () {
-        /* Increment the number of clicks */
-        clicks++;
+        if (powerUp == false) {
+            /* Increment the number of clicks */
+            clicks++;
 
 
-        /* if the same card is clicked twice, do nothing and reset card two */
-        cardTwoNumber = jQuery(this).attr('id');
-        if (cardOneNumber == cardTwoNumber) {
-            console.log("same card");
-            cardTwo = undefined;
-            cardTwoNumber = undefined;
-            return;
-        }
-
-        /* prevent more than two cards from being selected */
-        if (cardOne != undefined && cardTwo != undefined) {
-            console.log("two cards");
-            return;
-        }
-
-        /* flip the selected card over over */
-        $(this).toggleClass("flip");
-
-        /* if no cards are selected then record the card image */
-        if (!cardOne) {
-            cardOne = $(this).find(".frontFace")[0];
-            cardOneNumber = jQuery(this).attr('id');
-
-        } else {
-            /* if one card is selected then record the card image and preform comparison*/
-            cardTwo = $(this).find(".frontFace")[0];
-
-            /* if the cards match */
-            if (cardOne.src === cardTwo.src) {
-
-                /* remove the click event from the cards */
-                $(cardOne).parent().off("click");
-                $(cardTwo).parent().off("click");
-
-                /* if all cards are matched, win the game */
-                matches++;
-                pairsMatched++;
-                pairsUnmatched--;
-                if (matches == totalPairs) {
-                    win();
-                }
-
-                /* reset the selected cards */
-                cardOne = undefined;
-                cardOneNumber = undefined;
+            /* if the same card is clicked twice, do nothing and reset card two */
+            cardTwoNumber = jQuery(this).attr('id');
+            if (cardOneNumber == cardTwoNumber) {
+                console.log("same card");
                 cardTwo = undefined;
+                cardTwoNumber = undefined;
+                return;
+            }
+
+            /* prevent more than two cards from being selected */
+            if (cardOne != undefined && cardTwo != undefined) {
+                console.log("two cards");
+                return;
+            }
+
+            /* flip the selected card over over */
+            $(this).toggleClass("flip");
+
+            /* if no cards are selected then record the card image */
+            if (!cardOne) {
+                cardOne = $(this).find(".frontFace")[0];
+                cardOneNumber = jQuery(this).attr('id');
 
             } else {
+                /* if one card is selected then record the card image and preform comparison*/
+                cardTwo = $(this).find(".frontFace")[0];
 
-                /* if the cards don't match, wait a bit, then flip them back over*/
-                setTimeout(function () {
-                    $(cardOne).parent().toggleClass("flip");
-                    $(cardTwo).parent().toggleClass("flip");
+                /* if the cards match */
+                if (cardOne.src === cardTwo.src) {
+
+                    /* remove the click event from the cards */
+                    $(cardOne).parent().off("click");
+                    $(cardTwo).parent().off("click");
+
+                    /* if all cards are matched, win the game */
+                    matches++;
+                    pairsMatched++;
+                    pairsUnmatched--;
+                    if (matches == totalPairs) {
+                        win();
+                    }
 
                     /* reset the selected cards */
                     cardOne = undefined;
                     cardOneNumber = undefined;
                     cardTwo = undefined;
 
-                }, 1000);
+                } else {
+
+                    /* if the cards don't match, wait a bit, then flip them back over*/
+                    setTimeout(function () {
+                        $(cardOne).parent().toggleClass("flip");
+                        $(cardTwo).parent().toggleClass("flip");
+
+                        /* reset the selected cards */
+                        cardOne = undefined;
+                        cardOneNumber = undefined;
+                        cardTwo = undefined;
+
+                    }, 1000);
+                }
             }
         }
     });
@@ -122,8 +128,29 @@ const setup = () => {
     });
     /* when you click on a power up button call power up */
     $(".powerUp").click(function () {
+        /* if they have not used the power up and the board is set up */
+        if (usedPowerUp == false) {
+            if (totalPairs != 0) {
+                
+                /* set the power up to used and in effect and flip all the cards */
+                usedPowerUp = true;
+                powerUp = true;
+                for (cards = 1; cards <= totalPairs; cards++) {
+                    let card = $(`#card${cards}`);
+                    console.log(card);
+                    card.toggleClass("flip");
+                }
 
-
+                /* wait a bit then flip the cards back over and set the power up to not in effect */
+                setTimeout(function () {
+                    for (cards = 1; cards <= totalPairs; cards++) {
+                        let card = $(`#card${cards}`);
+                        card.toggleClass("flip");
+                    }
+                    powerUp = false;
+                }, 1000);
+            }
+        }
     });
 
     /* when you click on a lighting button call lighting */
