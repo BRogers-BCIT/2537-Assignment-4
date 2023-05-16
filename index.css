@@ -33,3 +33,49 @@ img {
 .frontFace {
     transform: rotateY(180deg);
 }
+
+#userOptions {
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    border: 5px solid blue;
+    width: fit-content;
+}
+
+#startOrReset {
+    display: flex;
+    justify-content: center;
+}
+
+.difficultyButton,
+.start,
+.reset {
+    justify-self: center;
+    margin: 10px;
+}
+
+#powerUp,
+#darkOrLight {
+    display: flex;
+    justify-content: center;
+    margin: 10px;
+    margin-top: 15px;
+}
+
+#darkOrLight {
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+
+#light {
+    margin-right: 20px;
+    border: solid black 2px;
+}
+
+#dark {
+    border: solid white 2px;
+}
+
+#playerInfo {
+    display: none;
+}
