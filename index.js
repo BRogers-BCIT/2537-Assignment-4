@@ -34,7 +34,8 @@ const setup = () => {
         <h4> Total Time: ${totalTime} </h4>`);
         }
         else if (totalPairs != 0 && totalTime != 0 && start == true) {
-            $("#endDisplay").html(`<H1>You Win! </H1>`);
+            $("#difficulties").css("display", "unset");
+            $("#endDisplay").html(`<H1>You Ran Out Of Time!</H1>`);
             start = false;
         }
     }, 1000);
@@ -85,6 +86,7 @@ const setup = () => {
 
                     /* if all cards are matched, win the game */
                     if (pairsMatched == totalPairs) {
+                        $("#difficulties").css("display", "unset");
                         $("#endDisplay").html(`<H1>You Win! </H1>`);
                         start = false;
                     }
