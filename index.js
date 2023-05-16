@@ -24,6 +24,14 @@ const setup = () => {
             if (cardOne.src === cardTwo.src) {
                 console.log("match");
 
+                /* remove the click event from the cards */
+                $(cardOne).parent().off("click");
+                $(cardTwo).parent().off("click");
+
+                /* reset the selected cards */
+                cardOne = undefined;
+                cardTwo = undefined;
+
             } else {
 
                 /* if the cards don't match, wait a bit, then flip them back over*/
