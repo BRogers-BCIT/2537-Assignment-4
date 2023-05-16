@@ -1,5 +1,3 @@
-let matches = undefined;
-
 /* user info */
 let clicks = 0;
 let pairsMatched = 0;
@@ -13,11 +11,11 @@ let cardOneNumber = undefined;
 let cardTwo = undefined;
 let cardTwoNumber = undefined;
 
-/* power up check */
+/* power up checks */
 let powerUp = false;
 let usedPowerUp = false;
 
-/* difficulty */
+/* game rules */
 let difficulty = undefined;
 let start = false;
 
@@ -34,8 +32,10 @@ const setup = () => {
         <h4> Pairs Matched: ${pairsMatched} </h4>
         <h4> Pairs Unmatched: ${pairsUnmatched} </h4>
         <h4> Total Time: ${totalTime} </h4>`);
-        } else {
-
+        }
+        else if (totalPairs != 0 && totalTime != 0 && start == true) {
+            $("#endDisplay").html(`<H1>You Win! </H1>`);
+            start = false;
         }
     }, 1000);
 
@@ -50,7 +50,6 @@ const setup = () => {
             /* if the same card is clicked twice, do nothing and reset card two */
             cardTwoNumber = jQuery(this).attr('id');
             if (cardOneNumber == cardTwoNumber) {
-                console.log("same card");
                 cardTwo = undefined;
                 cardTwoNumber = undefined;
                 return;
@@ -58,7 +57,6 @@ const setup = () => {
 
             /* prevent more than two cards from being selected */
             if (cardOne != undefined && cardTwo != undefined) {
-                console.log("two cards");
                 return;
             }
 
@@ -82,11 +80,13 @@ const setup = () => {
                     $(cardTwo).parent().off("click");
 
                     /* if all cards are matched, win the game */
-                    matches++;
                     pairsMatched++;
                     pairsUnmatched--;
-                    if (matches == totalPairs) {
-                        win();
+
+                    /* if all cards are matched, win the game */
+                    if (pairsMatched == totalPairs) {
+                        $("#endDisplay").html(`<H1>You Win! </H1>`);
+                        start = false;
                     }
 
                     /* reset the selected cards */
@@ -110,12 +110,6 @@ const setup = () => {
                 }
             }
         }
-        $("#playerInfo").html(`
-        <h4> Clicks: ${clicks} </h4>
-        <h4> Total Pairs: ${totalPairs} </h4>
-        <h4> Pairs Matched: ${pairsMatched} </h4>
-        <h4> Pairs Unmatched: ${pairsUnmatched} </h4>
-        <h4> Total Time: ${totalTime} </h4>`);
     });
 
     /* when you click on a difficulty button call difficulty setter */
@@ -147,6 +141,8 @@ const setup = () => {
 
     /* when you click on a reset button call reset */
     $(".reset").click(function () {
+        $("#endDisplay").html(``);
+        $("#playerInfo").html(``);
         if (totalPairs != 0) {
             $("#playerInfo").css("display", "unset");
             $("#start").css({ "background-color": "#6c757d", "border-color": "#6c757d" });
@@ -171,7 +167,9 @@ const setup = () => {
 
     /* when you click on a start button call start */
     $(".start").click(function () {
-        if (totalPairs != 0) {
+        if (totalPairs != 0 && start == false) {
+            $("#endDisplay").html(``);
+            $("#playerInfo").html(``);
             $("#playerInfo").css("display", "unset");
             $("#start").css({ "background-color": "#6c757d", "border-color": "#6c757d" });
             $("#difficulties").css("display", "none");
@@ -190,7 +188,6 @@ const setup = () => {
                 powerUp = true;
                 for (cards = 1; cards <= totalPairs; cards++) {
                     let card = $(`#card${cards}`);
-                    console.log(card);
                     card.toggleClass("flip");
                 }
 
