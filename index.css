@@ -54,6 +54,19 @@ img {
     margin: 10px;
 }
 
+#playerInfo {
+    margin: 10px;
+    width: fit-content;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+#endDisplay {
+    display: flex;
+    justify-content: center;
+}
+
 #powerUp,
 #darkOrLight {
     display: flex;

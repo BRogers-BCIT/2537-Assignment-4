@@ -18,6 +18,7 @@ let usedPowerUp = false;
 /* game rules */
 let difficulty = undefined;
 let start = false;
+let pokemon = [];
 
 
 const setup = () => {
