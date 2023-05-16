@@ -116,7 +116,8 @@ const setup = () => {
     });
 
     /* when you click on a difficulty button call difficulty setter */
-    $(".difficultyButton").click(function () {
+    $(".difficultyButton").click(async function () {
+        pokemon = [];
         /* reset the difficulty buttons colors*/
         $(`#easy`).css({ "background-color": "#007bff", "border-color": "#007bff" });
         $(`#medium`).css({ "background-color": "#007bff", "border-color": "#007bff" });
@@ -127,14 +128,32 @@ const setup = () => {
         if (difficulty == "easy") {
             totalPairs = 3;
             totalTime = 30;
+            $(".card").css({ "width": "33.3%", "height": "50%" });
         } else if (difficulty == "medium") {
             totalPairs = 6;
             totalTime = 60;
+            $(".card").css({ "width": "33.3%", "height": "25%" });
         } else if (difficulty == "hard") {
-            totalPairs = 9;
-            totalTime = 90;
+            totalPairs = 8;
+            totalTime = 80;
+            $(".card").css({ "width": "25%", "height": "25%" });
         }
         pairsUnmatched = totalPairs;
+
+        /* get the pokemon images */
+        let pokemonIDs = [];
+        while (pokemonIDs.length < totalPairs) {
+            let randomID = Math.floor(Math.random() * 151) + 1;
+            if (pokemonIDs.indexOf(randomID) === -1) {
+                pokemonIDs.push(randomID);
+            }
+        }
+        for (let i = 0; i < totalPairs; i++) {
+            let res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonIDs[i]}`)
+            pokemon.push(res.data.sprites.front_default);
+            pokemon.push(res.data.sprites.front_default);
+        }
+        console.log(pokemon);
 
         /* set the difficulty button color and turn on the start and reset buttons*/
         $("#start").css({ "background-color": "#007bff", "border-color": "#007bff" });
@@ -143,7 +162,8 @@ const setup = () => {
     });
 
     /* when you click on a reset button call reset */
-    $(".reset").click(function () {
+    $(".reset").click(async function () {
+        pokemon = [];
         $("#endDisplay").html(``);
         $("#playerInfo").html(``);
         if (totalPairs != 0) {
@@ -151,16 +171,36 @@ const setup = () => {
             $("#start").css({ "background-color": "#6c757d", "border-color": "#6c757d" });
             $("#difficulties").css("display", "none");
 
+            /* get the difficulty and set the number of pairs */
             if (difficulty == "easy") {
                 totalPairs = 3;
                 totalTime = 30;
+                $(".card").css({ "width": "33.3%", "height": "50%" });
             } else if (difficulty == "medium") {
                 totalPairs = 6;
                 totalTime = 60;
+                $(".card").css({ "width": "33.3%", "height": "25%" });
             } else if (difficulty == "hard") {
-                totalPairs = 9;
-                totalTime = 90;
+                totalPairs = 8;
+                totalTime = 80;
+                $(".card").css({ "width": "25%", "height": "25%" });
             }
+
+            /* get the pokemon images */
+            let pokemonIDs = [];
+            while (pokemonIDs.length < totalPairs) {
+                let randomID = Math.floor(Math.random() * 151) + 1;
+                if (pokemonIDs.indexOf(randomID) === -1) {
+                    pokemonIDs.push(randomID);
+                }
+            }
+            for (let i = 0; i < totalPairs; i++) {
+                let res = await axios.get(`https://pokeapi.co/api/v2/pokemon/${pokemonIDs[i]}`)
+                pokemon.push(res.data.sprites.front_default);
+                pokemon.push(res.data.sprites.front_default);
+            }
+            console.log(pokemon);
+
             pairsUnmatched = totalPairs;
             pairsMatched = 0;
             clicks = 0;
