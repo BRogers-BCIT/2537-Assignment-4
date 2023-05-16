@@ -1,18 +1,17 @@
 #gameArea {
+    border: 2px solid tomato;
+    width: 600px;
+    height: 400px;
     margin: auto;
     display: flex;
     flex-wrap: wrap;
-    width: 600px;
-    height: 400px;
-
 }
 
 .card {
-    width: 200px;
-    height: 200px;
+    width: 33.3%;
+    height: 50%;
     perspective: 1000px;
     transform-style: preserve-3d;
-    transition-property: all;
     transition-duration: 1s;
     backface-visibility: hidden;
 }
@@ -25,8 +24,6 @@ img {
 .backFace {
     backface-visibility: hidden;
     position: absolute;
-    top: 0px;
-    left: 0px;
 }
 
 .flip {
