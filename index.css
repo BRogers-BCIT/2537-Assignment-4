@@ -1,15 +1,15 @@
 #gameArea {
     border: 2px solid tomato;
-    width: 600px;
-    height: 400px;
+    width: 604px;
+    height: 404px;
     margin: auto;
     display: flex;
     flex-wrap: wrap;
 }
 
 .card {
-    width: 33.3%;
-    height: 50%;
+    width: 200px;
+    height: 200px;
     perspective: 1000px;
     transform-style: preserve-3d;
     transition-duration: 1s;
@@ -59,6 +59,7 @@ img {
     width: fit-content;
     margin-top: 15px;
     margin-bottom: 15px;
+
     text-align: center;
 }
 

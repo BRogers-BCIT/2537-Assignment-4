@@ -118,6 +118,7 @@ const setup = () => {
     /* when you click on a difficulty button call difficulty setter */
     $(".difficultyButton").click(async function () {
         pokemon = [];
+        $("#gameArea").html(``);
         /* reset the difficulty buttons colors*/
         $(`#easy`).css({ "background-color": "#007bff", "border-color": "#007bff" });
         $(`#medium`).css({ "background-color": "#007bff", "border-color": "#007bff" });
@@ -128,15 +129,15 @@ const setup = () => {
         if (difficulty == "easy") {
             totalPairs = 3;
             totalTime = 30;
-            $(".card").css({ "width": "33.3%", "height": "50%" });
+            $("#gameArea").css({ "width": "604px", "height": "404px" });
         } else if (difficulty == "medium") {
             totalPairs = 6;
             totalTime = 60;
-            $(".card").css({ "width": "33.3%", "height": "25%" });
+            $("#gameArea").css({ "width": "604px", "height": "804px" });
         } else if (difficulty == "hard") {
             totalPairs = 8;
             totalTime = 80;
-            $(".card").css({ "width": "25%", "height": "25%" });
+            $("#gameArea").css({ "width": "804px", "height": "804px" });
         }
         pairsUnmatched = totalPairs;
 
@@ -153,7 +154,14 @@ const setup = () => {
             pokemon.push(res.data.sprites.front_default);
             pokemon.push(res.data.sprites.front_default);
         }
-        console.log(pokemon);
+        for (let i = 0; i < totalPairs * 2; i++) {
+            let randomIndex = Math.floor(Math.random() * pokemon.length);
+            $("#gameArea").append(`<div class="card" id="card${i}">
+            <img class="frontFace" src="${pokemon[randomIndex]}" alt="">
+            <img class="backFace" src="back.webp" alt="">
+        </div>`);
+            pokemon.splice(randomIndex, 1);
+        }
 
         /* set the difficulty button color and turn on the start and reset buttons*/
         $("#start").css({ "background-color": "#007bff", "border-color": "#007bff" });
@@ -164,6 +172,7 @@ const setup = () => {
     /* when you click on a reset button call reset */
     $(".reset").click(async function () {
         pokemon = [];
+        $("#gameArea").html(``);
         $("#endDisplay").html(``);
         $("#playerInfo").html(``);
         if (totalPairs != 0) {
@@ -199,7 +208,14 @@ const setup = () => {
                 pokemon.push(res.data.sprites.front_default);
                 pokemon.push(res.data.sprites.front_default);
             }
-            console.log(pokemon);
+            for (let i = 0; i < totalPairs * 2; i++) {
+                let randomIndex = Math.floor(Math.random() * pokemon.length);
+                $("#gameArea").append(`<div class="card" id="card${i}">
+            <img class="frontFace" src="${pokemon[randomIndex]}" alt="">
+            <img class="backFace" src="back.webp" alt="">
+        </div>`);
+                pokemon.splice(randomIndex, 1);
+            }
 
             pairsUnmatched = totalPairs;
             pairsMatched = 0;
