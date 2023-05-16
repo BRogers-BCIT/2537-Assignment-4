@@ -1,8 +1,16 @@
 const matches = undefined;
+
+/* user info */
 const clicks = 0;
-const pairMatched = 0;
+const pairsMatched = 0;
 const pairsUnmatched = 0;
 const totalPairs = 0;
+
+/* Create selected cards one and two */
+const cardOne = undefined;
+const cardOneNumber = undefined;
+const cardTwo = undefined;
+const cardTwoNumber = undefined;
 
 const start = () => {
 
@@ -28,8 +36,9 @@ const matchCheck = () => {
     /* Increment the number of clicks */
     clicks++;
 
-    cardTwoNumber = jQuery(this).attr('id');
+
     /* if the same card is clicked twice, do nothing and reset card two */
+    cardTwoNumber = jQuery(this).attr('id');
     if (cardOneNumber == cardTwoNumber) {
         console.log("same card");
         cardTwo = undefined;
@@ -37,12 +46,13 @@ const matchCheck = () => {
         return;
     }
 
+    /* prevent more than two cards from being selected */
     if (cardOne != undefined && cardTwo != undefined) {
         console.log("two cards");
         return;
     }
 
-    /* flip it over */
+    /* flip the selected card over over */
     $(this).toggleClass("flip");
 
     /* if no cards are selected then record the card image */
@@ -63,7 +73,9 @@ const matchCheck = () => {
 
             /* if all cards are matched, win the game */
             matches++;
-            if (matches == 3) {
+            pairsMatched++;
+            pairsUnmatched--;
+            if (matches == totalPairs) {
                 win();
             }
 
@@ -92,13 +104,6 @@ const matchCheck = () => {
 }
 
 const setup = () => {
-
-    /* Create selected cards one and two */
-    let cardOne = undefined;
-    let cardOneNumber = undefined;
-    let cardTwo = undefined;
-    let cardTwoNumber = undefined;
-
     /* when you click on a card call match checker */
     $(".card").click(matchCheck);
 }
