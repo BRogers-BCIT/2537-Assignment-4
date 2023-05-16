@@ -44,6 +44,12 @@ const setup = () => {
 
     /* when you click on a difficulty button call difficulty setter */
     $(".difficultyButton").click(async function () {
+
+        /* reset power up checks */
+        usedPowerUp = false;
+        $(".powerUp").css({ "background-color": "#red", "border-color": "#red" });
+        $(".powerUp").html(`Power Up: 1 Use Left`);
+
         pokemon = [];
         $("#gameArea").html(``);
         /* reset the difficulty buttons colors*/
@@ -98,6 +104,11 @@ const setup = () => {
 
     /* when you click on a reset button call reset */
     $(".reset").click(async function () {
+        /* reset power up checks */
+        usedPowerUp = false;
+        $(".powerUp").css({ "background-color": "#dc3545", "border-color": "#dc3545" });
+        $(".powerUp").html(`Power Up: 1 Use Left`);
+
         pokemon = [];
         $("#gameArea").html(``);
         $("#endDisplay").html(``);
@@ -213,6 +224,7 @@ const setup = () => {
                     if (pairsMatched == totalPairs) {
                         $("#difficulties").css("display", "unset");
                         $("#endDisplay").html(`<H1>You Win! </H1>`);
+                        totalPairs = 0;
                         start = false;
                     }
 
