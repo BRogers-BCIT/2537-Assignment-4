@@ -87,6 +87,17 @@ const setup = () => {
 
     /* when you click on a difficulty button call difficulty setter */
     $(".difficultyButton").click(function () {
+        let difficulty = $(this).attr('id');
+        if (difficulty == "easy") {
+            totalPairs = 3;
+        } else if (difficulty == "medium") {
+            totalPairs = 6;
+        } else if (difficulty == "hard") {
+            totalPairs = 9;
+        }
+        pairsUnmatched = totalPairs;
+        $("#start").css("background-color", "blue");
+        $(`#${difficulty}`).css("color", "green");
 
 
     });
