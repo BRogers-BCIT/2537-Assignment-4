@@ -17,13 +17,25 @@ let cardTwoNumber = undefined;
 let powerUp = false;
 let usedPowerUp = false;
 
+/* difficulty */
+let difficulty = undefined;
+let start = false;
+
 
 const setup = () => {
 
     /* update the players time as the game goes on */
     setInterval(() => {
-        if (totalPairs != 0) {
+        if (totalPairs != 0 && totalTime != 0 && start == true) {
             totalTime--;
+            $("#playerInfo").html(`
+        <h4> Clicks: ${clicks} </h4>
+        <h4> Total Pairs: ${totalPairs} </h4>
+        <h4> Pairs Matched: ${pairsMatched} </h4>
+        <h4> Pairs Unmatched: ${pairsUnmatched} </h4>
+        <h4> Total Time: ${totalTime} </h4>`);
+        } else {
+
         }
     }, 1000);
 
@@ -114,7 +126,7 @@ const setup = () => {
         $(`#hard`).css({ "background-color": "#007bff", "border-color": "#007bff" });
 
         /* get the difficulty and set the number of pairs */
-        let difficulty = $(this).attr('id');
+        difficulty = $(this).attr('id');
         if (difficulty == "easy") {
             totalPairs = 3;
             totalTime = 30;
@@ -135,14 +147,36 @@ const setup = () => {
 
     /* when you click on a reset button call reset */
     $(".reset").click(function () {
+        if (totalPairs != 0) {
+            $("#playerInfo").css("display", "unset");
+            $("#start").css({ "background-color": "#6c757d", "border-color": "#6c757d" });
+            $("#difficulties").css("display", "none");
 
-
+            if (difficulty == "easy") {
+                totalPairs = 3;
+                totalTime = 30;
+            } else if (difficulty == "medium") {
+                totalPairs = 6;
+                totalTime = 60;
+            } else if (difficulty == "hard") {
+                totalPairs = 9;
+                totalTime = 90;
+            }
+            pairsUnmatched = totalPairs;
+            pairsMatched = 0;
+            clicks = 0;
+            start = true;
+        }
     });
 
     /* when you click on a start button call start */
     $(".start").click(function () {
-
-
+        if (totalPairs != 0) {
+            $("#playerInfo").css("display", "unset");
+            $("#start").css({ "background-color": "#6c757d", "border-color": "#6c757d" });
+            $("#difficulties").css("display", "none");
+            start = true;
+        }
     });
 
     /* when you click on a power up button call power up */
