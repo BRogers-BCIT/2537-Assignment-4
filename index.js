@@ -21,10 +21,11 @@ const setup = () => {
 
     /* when you click on a card call match checker */
     $(".card").click(function () {
+        /* if the power up is in effect, do nothing */
         if (powerUp == false) {
+
             /* Increment the number of clicks */
             clicks++;
-
 
             /* if the same card is clicked twice, do nothing and reset card two */
             cardTwoNumber = jQuery(this).attr('id');
@@ -89,6 +90,12 @@ const setup = () => {
                 }
             }
         }
+        $("#playerInfo").html(`
+        <h4> Clicks: ${clicks} </h4>
+        <h4> Total Pairs: ${totalPairs} </h4>
+        <h4> Pairs Matched: ${pairsMatched} </h4>
+        <h4> Pairs Unmatched: ${pairsUnmatched} </h4>
+        <h4> Total Time: ${totalTime} </h4>`);
     });
 
     /* when you click on a difficulty button call difficulty setter */
@@ -126,12 +133,13 @@ const setup = () => {
 
 
     });
+
     /* when you click on a power up button call power up */
     $(".powerUp").click(function () {
         /* if they have not used the power up and the board is set up */
         if (usedPowerUp == false) {
             if (totalPairs != 0) {
-                
+
                 /* set the power up to used and in effect and flip all the cards */
                 usedPowerUp = true;
                 powerUp = true;
