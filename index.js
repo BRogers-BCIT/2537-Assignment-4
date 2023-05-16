@@ -106,5 +106,10 @@ const matchCheck = () => {
 const setup = () => {
     /* when you click on a card call match checker */
     $(".card").click(matchCheck);
+    $(".difficultyButton").click(matchCheck);
+    $(".reset").click(matchCheck);
+    $(".start").click(matchCheck);
+    $(".powerUp").click(matchCheck);
+    $(".lighting").click(matchCheck);
 }
 $(document).ready(setup);
