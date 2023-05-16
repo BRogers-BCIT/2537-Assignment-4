@@ -42,7 +42,8 @@ const setup = () => {
     }, 1000);
 
     /* when you click on a card call match checker */
-    $(".card").click(function () {
+    $(".card").click(async function () {
+        console.log("clicked");
         /* if the power up is in effect or time is out, do nothing */
         if (powerUp == false && totalTime != 0) {
 
@@ -156,7 +157,7 @@ const setup = () => {
         }
         for (let i = 0; i < totalPairs * 2; i++) {
             let randomIndex = Math.floor(Math.random() * pokemon.length);
-            $("#gameArea").append(`<div class="card" id="card${i}">
+            $("#gameArea").append(`<div class="card" id="card${i + 1}">
             <img class="frontFace" src="${pokemon[randomIndex]}" alt="">
             <img class="backFace" src="back.webp" alt="">
         </div>`);
@@ -210,7 +211,7 @@ const setup = () => {
             }
             for (let i = 0; i < totalPairs * 2; i++) {
                 let randomIndex = Math.floor(Math.random() * pokemon.length);
-                $("#gameArea").append(`<div class="card" id="card${i}">
+                $("#gameArea").append(`<div class="card" id="card${i + 1}">
             <img class="frontFace" src="${pokemon[randomIndex]}" alt="">
             <img class="backFace" src="back.webp" alt="">
         </div>`);
@@ -225,7 +226,7 @@ const setup = () => {
     });
 
     /* when you click on a start button call start */
-    $(".start").click(function () {
+    $(".start").click(async function () {
         if (totalPairs != 0 && start == false) {
             $("#endDisplay").html(``);
             $("#playerInfo").html(``);
@@ -237,7 +238,7 @@ const setup = () => {
     });
 
     /* when you click on a power up button call power up */
-    $(".powerUp").click(function () {
+    $(".powerUp").click(async function () {
         /* if they have not used the power up and the board is set up */
         if (usedPowerUp == false) {
             if (totalPairs != 0) {
@@ -245,25 +246,27 @@ const setup = () => {
                 /* set the power up to used and in effect and flip all the cards */
                 usedPowerUp = true;
                 powerUp = true;
-                for (cards = 1; cards <= totalPairs; cards++) {
+                for (cards = 1; cards <= totalPairs * 2; cards++) {
                     let card = $(`#card${cards}`);
                     card.toggleClass("flip");
                 }
 
                 /* wait a bit then flip the cards back over and set the power up to not in effect */
                 setTimeout(function () {
-                    for (cards = 1; cards <= totalPairs; cards++) {
+                    for (cards = 1; cards <= totalPairs * 2; cards++) {
                         let card = $(`#card${cards}`);
                         card.toggleClass("flip");
                     }
                     powerUp = false;
+                    $(".powerUp").css({ "background-color": "#6c757d", "border-color": "#6c757d" });
+                    $(".powerUp").html(`Power Up: No Uses Left`);
                 }, 1000);
             }
         }
     });
 
     /* when you click on a lighting button call lighting */
-    $(".lighting").click(function () {
+    $(".lighting").click(async function () {
         let light = $(this).attr('id');
         if (light == "dark") {
             $('body').css("background", "gray")
