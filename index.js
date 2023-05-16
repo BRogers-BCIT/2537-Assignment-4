@@ -1,10 +1,33 @@
+const matches = undefined;
+
+const win = () => {
+
+}
+
 const setup = () => {
+
     /* Create selected cards one and two */
     let cardOne = undefined;
+    let cardOneNumber = undefined;
     let cardTwo = undefined;
+    let cardTwoNumber = undefined;
 
-    /* when you click on a car */
+    /* when you click on a card */
     $(".card").click(function () {
+
+        cardTwoNumber = jQuery(this).attr('id');
+        /* if the same card is clicked twice, do nothing and reset card two */
+        if (cardOneNumber == cardTwoNumber) {
+            console.log("same card");
+            cardTwo = undefined;
+            cardTwoNumber = undefined;
+            return;
+        }
+
+        if (cardOne != undefined && cardTwo != undefined) {
+            console.log("two cards");
+            return;
+        }
 
         /* flip it over */
         $(this).toggleClass("flip");
@@ -12,24 +35,28 @@ const setup = () => {
         /* if no cards are selected then record the card image */
         if (!cardOne) {
             cardOne = $(this).find(".frontFace")[0];
-            console.log(cardOne);
+            cardOneNumber = jQuery(this).attr('id');
 
         } else {
-
             /* if one card is selected then record the card image and preform comparison*/
             cardTwo = $(this).find(".frontFace")[0];
-            console.log(cardTwo);
 
             /* if the cards match */
             if (cardOne.src === cardTwo.src) {
-                console.log("match");
 
                 /* remove the click event from the cards */
                 $(cardOne).parent().off("click");
                 $(cardTwo).parent().off("click");
 
+                /* if all cards are matched, win the game */
+                matches++;
+                if (matches == 3) {
+                    win();
+                }
+
                 /* reset the selected cards */
                 cardOne = undefined;
+                cardOneNumber = undefined;
                 cardTwo = undefined;
 
             } else {
@@ -41,6 +68,7 @@ const setup = () => {
 
                     /* reset the selected cards */
                     cardOne = undefined;
+                    cardOneNumber = undefined;
                     cardTwo = undefined;
 
                 }, 1000);
