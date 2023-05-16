@@ -10,6 +10,11 @@
 .card {
     width: 200px;
     height: 200px;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    transition-property: all;
+    transition-duration: 1s;
+    backface-visibility: hidden;
 }
 
 img {
@@ -18,12 +23,16 @@ img {
 
 .frontFace,
 .backFace {
+    backface-visibility: hidden;
     position: absolute;
     top: 0px;
     left: 0px;
 }
 
-
 .flip {
+    transform: rotateY(180deg);
+}
+
+.frontFace {
     transform: rotateY(180deg);
 }
