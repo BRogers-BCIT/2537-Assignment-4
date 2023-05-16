@@ -87,9 +87,12 @@ const setup = () => {
 
     /* when you click on a difficulty button call difficulty setter */
     $(".difficultyButton").click(function () {
+        /* reset the difficulty buttons colors*/
         $(`#easy`).css({ "background-color": "#007bff", "border-color": "#007bff" });
         $(`#medium`).css({ "background-color": "#007bff", "border-color": "#007bff" });
         $(`#hard`).css({ "background-color": "#007bff", "border-color": "#007bff" });
+
+        /* get the difficulty and set the number of pairs */
         let difficulty = $(this).attr('id');
         if (difficulty == "easy") {
             totalPairs = 3;
@@ -99,14 +102,19 @@ const setup = () => {
             totalPairs = 9;
         }
         pairsUnmatched = totalPairs;
+
+        /* set the difficulty button color and turn on the start and reset buttons*/
         $("#start").css({ "background-color": "#007bff", "border-color": "#007bff" });
+        $("#reset").css({ "background-color": "#007bff", "border-color": "#007bff" });
         $(`#${difficulty}`).css({ "background-color": "green", "border-color": "green" });
     });
+
     /* when you click on a reset button call reset */
     $(".reset").click(function () {
 
 
     });
+
     /* when you click on a start button call start */
     $(".start").click(function () {
 
@@ -117,10 +125,19 @@ const setup = () => {
 
 
     });
+
     /* when you click on a lighting button call lighting */
     $(".lighting").click(function () {
-
-
+        let light = $(this).attr('id');
+        if (light == "dark") {
+            $('body').css("background", "gray")
+            $('#dark').css("color", "tomato")
+            $('#light').css("color", "black")
+        } else if (light == "light") {
+            $('body').css("background", "white")
+            $('#dark').css("color", "white")
+            $('#light').css("color", "tomato")
+        }
     });
 }
 $(document).ready(setup);
