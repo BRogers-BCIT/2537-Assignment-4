@@ -5,6 +5,7 @@ let clicks = 0;
 let pairsMatched = 0;
 let pairsUnmatched = 0;
 let totalPairs = 0;
+let totalTime = 0;
 
 /* Create selected cards one and two */
 let cardOne = undefined;
@@ -19,10 +20,17 @@ let usedPowerUp = false;
 
 const setup = () => {
 
+    /* update the players time as the game goes on */
+    setInterval(() => {
+        if (totalPairs != 0) {
+            totalTime--;
+        }
+    }, 1000);
+
     /* when you click on a card call match checker */
     $(".card").click(function () {
-        /* if the power up is in effect, do nothing */
-        if (powerUp == false) {
+        /* if the power up is in effect or time is out, do nothing */
+        if (powerUp == false && totalTime != 0) {
 
             /* Increment the number of clicks */
             clicks++;
@@ -109,10 +117,13 @@ const setup = () => {
         let difficulty = $(this).attr('id');
         if (difficulty == "easy") {
             totalPairs = 3;
+            totalTime = 30;
         } else if (difficulty == "medium") {
             totalPairs = 6;
+            totalTime = 60;
         } else if (difficulty == "hard") {
             totalPairs = 9;
+            totalTime = 90;
         }
         pairsUnmatched = totalPairs;
 
