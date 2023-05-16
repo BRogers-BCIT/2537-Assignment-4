@@ -1,0 +1,10 @@
+#game_area {
+    display: flex;
+    width: 600px;
+    height: 400px;
+}
+
+.card {
+    width: 200px;
+    height: 200px;
+}
