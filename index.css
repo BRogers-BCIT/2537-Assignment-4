@@ -22,3 +22,8 @@ img {
     top: 0px;
     left: 0px;
 }
+
+
+.flip {
+    transform: rotateY(180deg);
+}
