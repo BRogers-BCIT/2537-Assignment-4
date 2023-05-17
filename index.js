@@ -61,7 +61,7 @@ const setup = () => {
         difficulty = $(this).attr('id');
         if (difficulty == "easy") {
             totalPairs = 3;
-            totalTime = 30;
+            totalTime = 15;
             $("#gameArea").css({ "width": "604px", "height": "404px" });
         } else if (difficulty == "medium") {
             totalPairs = 6;
@@ -121,7 +121,7 @@ const setup = () => {
             /* get the difficulty and set the number of pairs */
             if (difficulty == "easy") {
                 totalPairs = 3;
-                totalTime = 30;
+                totalTime = 15;
                 $(".card").css({ "width": "33.3%", "height": "50%" });
             } else if (difficulty == "medium") {
                 totalPairs = 6;
