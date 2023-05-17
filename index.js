@@ -224,7 +224,6 @@ const setup = () => {
                     if (pairsMatched == totalPairs) {
                         $("#difficulties").css("display", "unset");
                         $("#endDisplay").html(`<H1>You Win! </H1>`);
-                        totalPairs = 0;
                         start = false;
                     }
 
