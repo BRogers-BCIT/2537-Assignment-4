@@ -225,6 +225,14 @@ const setup = () => {
                         $("#difficulties").css("display", "unset");
                         $("#endDisplay").html(`<H1>You Win! </H1>`);
                         start = false;
+
+                        /* when the game is won, final update to the player info */
+                        $("#playerInfo").html(`
+                        <h4> Clicks: ${clicks} </h4>
+                        <h4> Total Pairs: ${totalPairs} </h4>
+                        <h4> Pairs Matched: ${pairsMatched} </h4>
+                        <h4> Pairs Unmatched: ${pairsUnmatched} </h4>
+                        <h4> Total Time: ${totalTime} </h4>`);
                     }
 
                     /* reset the selected cards */
